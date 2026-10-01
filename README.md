@@ -2,6 +2,7 @@
 
 ## Project Information 
 
+
 The Downtown Partnership of Baltimore (DPOB) dashboard highlights the economic geography of Baltimore’s Central Business District (CBD) and the downtown management area. This dashboard aims to be user-friendly, publicly accessible, and available to stakeholders both within and outside the city. By integrating a variety of datasets and analytical methods, the dashboard will provide valuable insights to support DPOB in identifying and addressing the services Baltimore needs to remain sustainable.
  
 ## Datasets 
