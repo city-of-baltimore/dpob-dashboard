@@ -1,5 +1,5 @@
 # Base configuration
-exclude: [".rvmrc", ".rbenv-version", "README.md", "changelog.md"]
+exclude: [".rvmrc", ".rbenv-version", "README.md", "changelog.md", "vendor/"]
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
