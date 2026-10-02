@@ -1,0 +1,19 @@
+---
+layout: null
+permalink: /
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to {{ site.name }}</title>
+  <link rel="canonical" href="{{ site.baseurl }}/dpob_introduction_page">
+  <meta http-equiv="refresh" content="0; url={{ site.baseurl }}/dpob_introduction_page">
+  <meta name="robots" content="noindex">
+  <script>location.replace("{{ site.baseurl }}/dpob_introduction_page" + location.search + location.hash);</script>
+</head>
+<body>
+  <p>Redirecting to the <a href="{{ site.baseurl }}/dpob_introduction_page">{{ site.name }}</a>.</p>
+</body>
+</html>
