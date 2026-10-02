@@ -1,0 +1,65 @@
+## Project Overview
+#This project looks at the block lots that are within the downtown area. Using a shapefile of the downtown area, I will use st_intersect to intersect the blocks within the downtown area.
+
+## Libraries
+#Loading the libraries that are needed.
+
+```{r libraries, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(r4OPI)
+library(sf)
+library(here)
+library(fastmap)
+library(tidycensus)
+library(lubridate)
+library(Microsoft365R)
+library(AzureGraph)
+library(DBI)
+library(tibble)
+library(janitor)
+library(odbc)
+library(stringr)
+```
+
+## Reading in the datasets
+#Reading in the shapefiles that are needed to complete the analysis.
+
+```{r datasets}
+dntw <- st_read(here("shapefiles", "downtown.shp"))
+art <- read.csv(here("results", "all_art_data.csv"))
+```
+
+## Conversion and Spatial Join
+Changing the projection for the dataset to match the downtown boundary. Do a st_intersection to make sure that we are only looking at data that is within the downtown boundary.
+
+```{r analysis}
+# Convert to sf object
+art_sf <- st_as_sf(art, coords = c("longitude", "latitude"), crs = 4326)
+
+# Transform downtown boundary to same CRS
+dntw <- st_transform(dntw, 4326)
+
+# Spatial join: filter crimes within downtown boundary
+dntw_art <- st_intersection(art_sf, dntw)
+
+# Create exportable data frame with WKT and lat/lon
+dntw_art_wkt <- dntw_art %>%
+  mutate(wkt = st_as_text(geometry)) %>%
+  st_drop_geometry() %>%
+  mutate(
+    geometry_clean = str_remove_all(wkt, "POINT \\(|\\)"),
+    longitude = as.numeric(str_extract(geometry_clean, "^-?\\d+\\.\\d+")),
+    latitude = as.numeric(str_extract(geometry_clean, "(?<= )-?\\d+\\.\\d+$"))
+  )
+
+# Drop geometry and convert to a plain dataframe
+dntw_art_wkt <- st_drop_geometry(dntw_art_wkt)
+```
+## Write out the data
+I want to write out a shapefile and a xlsx file for mapping in the dashboard.
+
+```{r writeout}
+st_write(dntw_art, here("shapefiles", "art_dma.shp"), append = F)
+writexl::write_xlsx(dntw_art_wkt, here("results", "dntw_art_wkt.xlsx")) 
+```
+

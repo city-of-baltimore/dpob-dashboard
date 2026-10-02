@@ -1,0 +1,8 @@
+.hero {
+  background-image: url('/img/dpob-staff-community-clean.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 500px;
+  padding: 60px;
+  color: white;
+}

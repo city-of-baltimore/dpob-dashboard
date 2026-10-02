@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>
+      
+        311 Service Requests - Downtown Economic Intelligence Dashboard
+      
+    </title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="/dpob-dashboard/assets/css/normalize.css">
+    <link rel="stylesheet" href="/dpob-dashboard/assets/css/main.css">
+    <link rel="stylesheet" href="/dpob-dashboard/assets/css/syntax.css">
+    <!--[if lt IE 9]>
+      <script src="/dpob-dashboard/assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+
+  <body>
+    <div class="container">
+
+      <header role="banner" style="background-color: #121f3f; padding: 20px;">
+        <div class="wrap" style="display: flex; align-items: center;">
+          
+          <img class="logo" src="/dpob-dashboard/images/DowntownRiseColor.jpg" alt="The DowntownRISE Logo" width="150px" style="margin-right: 20px;">
+          
+          
+          <img class="logo" src="/dpob-dashboard/images/MBS Seal Logo.png" alt="The Mayor Logo" width="150px" style="margin-right: 20px; padding: 4px; border-radius: 4px;">
+          
+
+          <h1 class="site-title" style="margin: 0; color: #f1c232;">
+            Downtown Economic Intelligence Dashboard
+          </h1>
+        </div>
+      </header>
+
+      <div class="wrap content">
+
+        <aside>
+  <p class="intro"></p>
+  <a class="skip-link visuallyhidden focusable" href="#main">Skip to Main Content</a>
+  <nav class="sidebar-nav" role="navigation">
+    <ul>
+      
+        
+            <li>
+              <a href="/dpob-dashboard//dpob_introduction_page">Introduction</a>
+            </li>
+        
+      
+        
+            <li>
+              <a href="/dpob-dashboard//data-dictionary">Data Dictionary</a>
+            </li>
+        
+      
+    </ul>
+  </nav>
+</aside>
+
+        <section id="main" class="main-content" role="main">
+          <h2 class="page-title">311 Service Requests</h2>
+
+<h1 id="service-request-statistics">Service Request Statistics</h1>
+
+<!-- Stat Boxes -->
+<div style="display: flex; gap: 16px; justify-content: center; align-items: stretch; margin-bottom: 40px;">
+  <div style="background-color: #121f3f; padding: 10px; border-radius: 8px; width: 250px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="color: #f1c232; font-weight: bold; font-size: 16px;">Average Days to Close Service Requests</div>
+    <div style="color: #f1c232; font-weight: bold; font-size: 28px;">12.40</div>
+  </div>
+  <div style="background-color: #121f3f; padding: 10px; border-radius: 8px; width: 250px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="color: #f1c232; font-weight: bold; font-size: 16px;">Number of Overdue Service Requests</div>
+    <div style="color: #f1c232; font-weight: bold; font-size: 28px;">1273</div>
+  </div>
+</div>
+
+<style>
+/* General Layout */
+.bar-chart {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.chart-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chart-legend > div {
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.chart-legend span {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* Bar Area */
+.bar-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 30px;
+  max-width: 100%;
+}
+
+/* Each group of bars + labels */
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 70px;
+}
+
+/* Bar and Labels */
+.bar {
+  width: 30px;
+  display: flex;
+  flex-direction: column-reverse; /* Ensures text stays inside at the bottom */
+  align-items: center;
+  justify-content: flex-start;    /* Text stays at bottom of the bar */
+  font-size: 10px;                /* Still small but a bit more readable */
+  font-weight: bold;
+  color: #000;
+  border-radius: 4px 4px 0 0;
+  padding: 4px 2px;               /* Slight padding all around */
+  line-height: 1.2;
+  word-break: break-word;
+  overflow: hidden;
+  text-align: center;             /* Ensures centered multiline text */
+  min-height: 20px;               /* Ensures short bars still have space */
+}
+
+
+/* Bar labels below bars */
+.bar-name {
+  font-size: 13px;
+  text-align: center;
+  max-width: 70px;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  gap: 2px;
+  height: 39px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px; /* <-- increased from 8px to 18px */
+}
+
+.bar-label {
+  margin-top: 6px;
+  font-size: 11px;
+  text-align: center;
+  max-width: 70px;
+  line-height: 1.2;
+  height: 28px; /* Fix height to prevent pushing bars */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  white-space: normal;
+}
+
+/* Bar Colors */
+.close-bar { background-color: #abb8c3; }
+.sla-bar { background-color: #8ed1fc; }
+.closed { background-color: #9FE2BF; }
+.new { background-color: #f28e2c; }
+.open { background-color: #e15759; }
+.pending { background-color: #b07aa1; }
+</style>
+
+<!-- Chart 1: Average vs SLA -->
+<div class="bar-chart" aria-label="Average Days to Close Service Requests vs. SLA by Group">
+  <div class="chart-title">Average Days to Close Service Requests vs. SLA by Group</div>
+  <div class="chart-subtitle">Source: CitiStat 311 Service Requests, Jan. 2024 - May. 2025</div>
+  <div class="chart-legend">
+    <span style="background-color: #abb8c3;"></span> Average of Days to Close
+    <span style="background-color: #8ed1fc;"></span> Average of SLA
+  </div>
+
+  <div style="display: flex; align-items: flex-end; max-width: 100%; overflow-x: auto;">
+    <!-- Y-axis label -->
+    <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-weight: bold; font-size: 13px; margin-right: 12px; text-align: center; white-space: nowrap;">
+      Average Days to Close
+    </div>
+
+   <div class="bar-container" style="min-width: 400px;">
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 76px;">19</div>
+        <div class="bar close-bar" style="height: 164px;">41</div>
+        <div class="bar-name">Trees &amp;<br />Grass</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 84px;">21</div>
+        <div class="bar close-bar" style="height: 84px;">21</div>
+        <div class="bar-name">Street &amp;<br />Curb Repairs</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 12px;">3</div>
+        <div class="bar close-bar" style="height: 76px;">19</div>
+        <div class="bar-name">Water</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 28px;">7.6</div>
+        <div class="bar close-bar" style="height: 56px;">14</div>
+        <div class="bar-name">
+          <span>Traffic Signals,</span>
+          <span>Lights, &amp;</span>
+          <span>Signs</span>
+        </div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 24px;">6</div>
+        <div class="bar close-bar" style="height: 36px;">9</div>
+        <div class="bar-name">Dirty<br />Streets</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 12px;">3</div>
+        <div class="bar close-bar" style="height: 32px;">8</div>
+        <div class="bar-name">Trash &amp;<br />Recycling</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar sla-bar" style="height: 12px;">3</div>
+        <div class="bar close-bar" style="height: 44px;">11</div>
+        <div class="bar-name">Graffiti</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- X-axis label -->
+  <div style="margin-top: 10px; font-weight: bold; font-size: 13px; text-align: center; white-space: nowrap;">
+    SR Group
+  </div>
+</div>
+
+<!-- Chart 2: Service Requests by Group and Status -->
+<div class="bar-chart" aria-label="Service Requests by Groups and Status">
+  <div class="chart-title">Service Requests by Groups and Status</div>
+  <div class="chart-subtitle">Source: CitiStat 311 Service Requests, Jan. 2024 - May. 2025</div>
+  <div class="chart-legend">
+    <div>SR Status:</div>
+    <span style="background-color: #9FE2BF;"></span> Closed
+    <span style="background-color: #f28e2c;"></span> New
+    <span style="background-color: #e15759;"></span> Open
+    <span style="background-color: #b07aa1;"></span> Pending
+  </div>
+  <div style="display: flex; align-items: flex-end; max-width: 100%; overflow-x: auto;">
+    <!-- Y-axis label -->
+    <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-weight: bold; font-size: 13px; margin-right: 12px; text-align: center; white-space: nowrap;">
+      Number of SRs
+    </div>
+   <div class="bar-container" style="min-width: 400px;">
+    <div class="bar-group">
+      <div class="bar closed" style="height: 200px;">1568</div>
+      <div class="bar new" style="height: 21px;">89</div>
+      <div class="bar-name">Traffic Signals,<br />Lights, &amp;<br />Signs</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 155px;">1201</div>
+      <div class="bar new" style="height: 22px;">94</div>
+      <div class="bar-name">Dirty<br />Streets</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 145px;">878</div>
+      <div class="bar open" style="height: 49px;">298</div>
+      <div class="bar-name">Street &amp;<br />Curb<br />Repairs</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 120px;">755</div>
+      <div class="bar new" style="height: 15px;">63</div>
+      <div class="bar-name">Water</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 127px;">801</div>
+      <div class="bar pending" style="height: 10px;">52</div>
+      <div class="bar-name">Graffiti</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 77px;">477</div>
+      <div class="bar new" style="height: 10px;">41</div>
+      <div class="bar-name">Trash &amp;<br />Recycling</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar closed" style="height: 36px;">224</div>
+      <div class="bar-name">Trees &amp;<br />Grass</div>
+    </div>
+  </div>
+</div>
+  <!-- X-axis label -->
+  <div style="margin-top: 10px; font-weight: bold; font-size: 13px; text-align: center; white-space: nowrap;">
+    SR Group
+  </div>
+</div>
+
+<!-- Chart 3: Service Requests Created Over Time -->
+<div class="bar-chart" aria-label="Service Requests Created Over Time">
+  <div class="chart-title">Service Requests Created Over Time</div>
+  <div class="chart-subtitle">Source: CitiStat 311 Service Requests, Jan. 2024 - May. 2025</div>
+  <div class="chart-legend">
+    <div>SR Status:</div>
+    <span style="background-color: #f28e2c;"></span> Open
+    <span style="background-color: #8ed1fc;"></span> Closed
+  </div>
+  <div class="bar-container" style="justify-content: center; min-width: 600px;">
+   <div style="display: flex; align-items: flex-end; max-width: 100%; overflow-x: auto;">
+    <!-- Y-axis label -->
+    <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-weight: bold; font-size: 13px; margin-right: 12px; text-align: center; white-space: nowrap;">
+      Number of SRs
+    </div>
+    <!-- Each month group -->
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 160px;">450</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 120px;">436</div>
+      <div class="bar-name">January<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">308</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">288</div>
+      <div class="bar-name">February<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 140px;">319</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 110px;">299</div>
+      <div class="bar-name">March<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 150px;">391</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 130px;">371</div>
+      <div class="bar-name">April<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 170px;">386</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 120px;">356</div>
+      <div class="bar-name">May<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 160px;">324</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 110px;">295</div>
+      <div class="bar-name">June<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 140px;">394</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">368</div>
+      <div class="bar-name">July<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 150px;">579</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 130px;">508</div>
+      <div class="bar-name">August<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">483</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 120px;">447</div>
+      <div class="bar-name">September<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 170px;">400</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 110px;">364</div>
+      <div class="bar-name">October<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 150px;">310</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 90px;">294</div>
+      <div class="bar-name">November<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 140px;">322</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">284</div>
+      <div class="bar-name">December<br />2024</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">407</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">316</div>
+      <div class="bar-name">January<br />2025</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">386</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">354</div>
+      <div class="bar-name">February<br />2025</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">377</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">337</div>
+      <div class="bar-name">March<br />2025</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">355</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">302</div>
+      <div class="bar-name">April<br />2025</div>
+    </div>
+    <div class="bar-group">
+      <div class="bar" style="background-color: #f28e2c; height: 180px;">331</div>
+      <div class="bar" style="background-color: #8ed1fc; height: 100px;">231</div>
+      <div class="bar-name">May<br />2025</div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+        </section>
+
+      </div><!-- /.wrap content -->
+
+      <div id="glossary">
+  <a href="#glossary" class="glossary-toggle">Close</a>
+  <h3>Glossary of Terms</h3>
+  <input type="search" id="glossary-search" placeholder="search here">
+  <div id="glossary-terms">
+    <ul>
+      
+      
+        <li class="glossary-term" hidden-term="false" id="a-glossary-term">
+          <div class="glossary-term-name">
+            A glossary term
+          </div>
+          <div class="glossary-term-definition">
+            <p>To add glossary terms, edit the glossary.yaml file in the _data folder.</p>
+
+          </div>
+        </li>
+      
+        <li class="glossary-term" hidden-term="false" id="another-glossary-term">
+          <div class="glossary-term-name">
+            Another term
+          </div>
+          <div class="glossary-term-definition">
+            <p>Glossary terms need a term, slug, and definition attribute.  The term attribute will appear above the definition. The slug is a unique identifier for the term. It should be lowercase, with no special characters or punctuation, and any spaces replaced with a dash.</p>
+
+          </div>
+        </li>
+      
+        <li class="glossary-term" hidden-term="false" id="yet-another-term">
+          <div class="glossary-term-name">
+            Yet another term
+          </div>
+          <div class="glossary-term-definition">
+            <p>Want to link to a specific glossary term in your text, like <a href="#glossary" define="yet-another-term">this one here</a>? You will need to edit your markdown like so:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[this one here](#glossary){:define="yet-another-term"}
+</code></pre></div></div>
+
+<p>Just place the text you want linked in the brackets and the correct slug within the quotes.</p>
+
+          </div>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+<script>
+  var glossary_data = [{"term":"A glossary term","slug":"a-glossary-term","definition":"To add glossary terms, edit the glossary.yaml file in the _data folder."},{"term":"Another term","slug":"another-glossary-term","definition":"Glossary terms need a term, slug, and definition attribute.  The term attribute will appear above the definition. The slug is a unique identifier for the term. It should be lowercase, with no special characters or punctuation, and any spaces replaced with a dash.\n"},{"term":"Yet another term","slug":"yet-another-term","definition":"Want to link to a specific glossary term in your text, like [this one here](#glossary){:define=\"yet-another-term\"}? You will need to edit your markdown like so: \n\n    [this one here](#glossary){:define=\"yet-another-term\"}\n\nJust place the text you want linked in the brackets and the correct slug within the quotes."}]
+</script>
+      <footer role="contentinfo">
+  <div class="wrap">
+    <p>
+      This project is maintained by the 
+      <a href="https://opi.baltimorecity.gov" target="_blank">Mayor's Office of Performance and Innovation (OPI)</a>
+      and 
+      <a href="https://www.downtownbaltimorerise.com/" target="_blank">DowntownRISE</a>.
+    </p>
+  </div><!--/.wrap -->
+</footer>
+
+
+    </div> <!-- /.container -->
+  </body>
+
+  <script src="/dpob-dashboard/assets/js/glossary.js"></script>
+
+
+</html>
